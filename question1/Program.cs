@@ -17,7 +17,7 @@ namespace question1
             Console.WriteLine("Q2 : Enter the number of terms in the Pell Series:");
             int n2 = Convert.ToInt32(Console.ReadLine());
             printPellSeries(n2);
-            //Console.WriteLine();
+            Console.WriteLine("\n");
 
             //Question 3:
             Console.WriteLine("Q3 : Enter the number to check if squareSums exist:");
@@ -136,21 +136,21 @@ namespace question1
 
                 if (n2 <= 0)
                 {
-                    Console.WriteLine("enter a valid number");
+                    Console.Write("enter a valid number");
 
                 }
                 else
                 {
-                    Console.WriteLine("\n");
+                    Console.Write("\n");
 
-                    Console.WriteLine(a);
+                    Console.Write(a + " ");
 
 
                     for (n = 1; n < n2; n++)   // using for loop for printing n2 numbers
 
                     {
                         c = b + (2 * a);    // pell number = (n-1) + ( 2* (n-2) )
-                        Console.WriteLine(c);
+                        Console.Write(c + " ");
 
                         b = a;   // (n-1)th number = (n-2)th number for next loop
                         a = c;  // (n-2)th number = (n)th number for the next loop
@@ -199,35 +199,32 @@ namespace question1
         {
             try
             {
-                int n = nums.Length;
-                int count = 0;
-                // for each pair
-                for (int i = 0; i < n; i++)
-                {
-                    for (int j = i + 1; j < n; j++)
-                    {
-                        // if difference is k, check if same number has appeared before
-                        if ((nums[j] - nums[i] == k) || (nums[i] - nums[j] == k))
-                        {
-                            bool already_seen = false;
-                            for (int l = j - 1; l > i; l--)
-                            {
-                                if (nums[l] == nums[j])
-                                {
-                                    already_seen = true;
-                                    break;
-                                }
-                            }
-                            // not appeared before, increase the count
-                            if (already_seen == false)
-                            {
-                                count++;
-                            }
-                        }
-                    }
-                }
+                if (k < 0)
+                    return 0;
 
-                return count;
+                int result = 0;
+                System.Collections.Hashtable map = new System.Collections.Hashtable();
+
+                foreach (var set in nums)
+                    if (!map.ContainsKey(set))
+                    {
+
+
+                        map.Add(set, 1);
+                    }
+                    else
+                    {
+                        map[set] = (int)map[set] + 1;
+                    }
+                foreach (var set in map.Keys)
+                    if (k == 0)
+                    {
+                        if ((int)map[set] > 1)
+                            result++;
+                    }
+                    else if (map.ContainsKey((int)set + k)) result++;
+
+                return result;
             }
             catch (Exception e)
             {
@@ -238,7 +235,8 @@ namespace question1
 
         }
 
-        private static int UniqueEmails(List<string> emails)
+
+                private static int UniqueEmails(List<string> emails)
         {
             try
             {
@@ -315,5 +313,6 @@ namespace question1
         }
     }
 }
+
 
 
